@@ -1,0 +1,19 @@
+fn bfs(n: usize, neighbors: HashMap<i32, Vec<usize>>, source: usize, destination: usize) -> bool {
+    let mut structure = vec![];
+    let mut explored = vec![false; n as usize];
+    explored[source] = true;
+    structure.push(source);
+    while structure.len() > 0 {
+        let current_vertex = structure.remove(0);
+        if current_vertex == destination {
+            return true;
+        }
+        for neighbor in neighbors.get(&(current_vertex as i32)).unwrap() {
+            if !explored[*neighbor] {
+                explored[*neighbor] = true;
+                structure.push(*neighbor);
+            }
+        }
+    }
+    false
+}
