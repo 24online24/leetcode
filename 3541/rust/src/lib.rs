@@ -8,7 +8,7 @@ impl Solution {
 
         let mut max_app_vowel = 0;
         let mut max_app_cons = 0;
-        for (byte, appearance_count) in appearances.into_iter().enumerate() {
+        for (byte, &appearance_count) in appearances.iter().enumerate() {
             if Self::VOWELS.contains(&(byte as u8 + b'a')) {
                 if appearance_count > max_app_vowel {
                     max_app_vowel = appearance_count;
