@@ -9,11 +9,11 @@ impl Solution {
                 .collect()
         }
 
-        let mut exact_words: HashSet<String> = HashSet::new();
+        let mut exact_words: HashSet<&String> = HashSet::new();
         let mut lower_case_words: HashMap<String, &String> = HashMap::new();
         let mut unvoweled_words: HashMap<String, &String> = HashMap::new();
         wordlist.iter().for_each(|word| {
-            exact_words.insert(word.clone());
+            exact_words.insert(word);
             lower_case_words
                 .entry(word.to_ascii_lowercase())
                 .or_insert(word);
