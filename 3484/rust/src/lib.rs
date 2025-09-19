@@ -7,8 +7,9 @@ struct Spreadsheet {
  * If you need a mutable reference, change it to `&mut self` instead.
  */
 impl Spreadsheet {
-    fn parse_cell(mut cell: String) -> (usize, usize) {
-        let row = cell.split_off(1);
+    fn parse_cell(cell: &str) -> (usize, usize) {
+        let col = &cell[..1];
+        let row = &cell[1..];
         (row.parse().unwrap(), (cell.as_bytes()[0] - b'A') as usize)
     }
 
@@ -16,7 +17,7 @@ impl Spreadsheet {
         if let Ok(numeric_value) = value.parse() {
             return numeric_value;
         }
-        let (x, y) = Self::parse_cell(value.to_owned());
+        let (x, y) = Self::parse_cell(value);
         return self.grid[x][y];
     }
 
@@ -27,12 +28,12 @@ impl Spreadsheet {
     }
 
     fn set_cell(&mut self, cell: String, value: i32) {
-        let (x, y) = Self::parse_cell(cell);
+        let (x, y) = Self::parse_cell(&cell);
         self.grid[x][y] = value;
     }
 
     fn reset_cell(&mut self, cell: String) {
-        let (x, y) = Self::parse_cell(cell);
+        let (x, y) = Self::parse_cell(&cell);
         self.grid[x][y] = 0;
     }
 
