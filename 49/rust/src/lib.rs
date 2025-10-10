@@ -4,10 +4,11 @@ impl Solution {
     pub fn group_anagrams(strs: Vec<String>) -> Vec<Vec<String>> {
         let mut anagrams = HashMap::new();
         strs.into_iter().for_each(|str| {
-            let mut sorted = str.chars().collect::<Vec<_>>();
-            sorted.sort();
             anagrams
-                .entry(sorted)
+                .entry(str.bytes().fold([0; 26], |mut acc, x| {
+                    acc[(x - b'a') as usize] += 1;
+                    acc
+                }))
                 .and_modify(|anagram_array: &mut Vec<String>| anagram_array.push(str.clone()))
                 .or_insert(vec![str]);
         });
