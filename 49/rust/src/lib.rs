@@ -9,8 +9,8 @@ impl Solution {
                     acc[(x - b'a') as usize] += 1;
                     acc
                 }))
-                .and_modify(|anagram_array: &mut Vec<String>| anagram_array.push(str.clone()))
-                .or_insert(vec![str]);
+                .or_insert_with(Vec::new)
+                .push(str);
         });
         anagrams.into_values().collect()
     }
