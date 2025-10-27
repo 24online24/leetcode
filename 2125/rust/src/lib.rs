@@ -1,17 +1,12 @@
 impl Solution {
     pub fn number_of_beams(bank: Vec<String>) -> i32 {
-        let mut lasers = 0;
-        let mut last_row = 0;
-
-        for row in bank {
-            let devices = row.chars().filter(|c| *c == '1').count();
-            if devices > 0 {
-                lasers += last_row * devices;
-                last_row = devices;
-            }
-        }
-
-        lasers as i32
+        bank.into_iter()
+            .map(|row| row.chars().filter(|c| *c == '1').count() as i32)
+            .filter(|devices| *devices != 0)
+            .collect::<Vec<_>>()
+            .windows(2)
+            .map(|w| w[0] * w[1])
+            .sum()
     }
 }
 
