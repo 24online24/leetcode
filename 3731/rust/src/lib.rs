@@ -8,8 +8,7 @@ impl Solution {
         appearance
             .into_iter()
             .enumerate()
-            .filter(|&(_, appears)| !appears)
-            .map(|(idx, _)| idx as i32 + minimum)
+            .filter_map(|(idx, appears)| (!appears).then_some(idx as i32 + minimum))
             .collect()
     }
 }
